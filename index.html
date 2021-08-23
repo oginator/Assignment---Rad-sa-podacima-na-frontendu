@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment - Rad sa podacima na frontendu</title>
+</head>
+
+<body>
+
+    <script>
+        fetch("data.json").then(function (response) {
+
+            return response.json();
+
+        }).then(function (data) {
+
+            document.body.innerHTML += '<h2>' + 'Question 1: ' + data.quiz.q1.question + '<h2>';
+
+            for (i = 0; i < data.quiz.q1.options.length; i++) {
+                
+                document.body.innerHTML += '<p>' + `<input type="radio" name="q1" value=${i} onclick="check('q1',${i})"/>` + data.quiz.q1
+                    .options[i] + '<p>';
+
+            }
+
+            document.body.innerHTML += '<h2>' + 'Question 2: ' + data.quiz.q2.question + '<h2>';
+
+            for (i = 0; i < data.quiz.q2.options.length; i++) {
+
+                document.body.innerHTML += '<p>' + `<input type="radio" name="q2" value=${i} onclick="check('q2',${i})"/>` + data.quiz.q2
+                    .options[i] + '<p>';
+
+            }
+
+            document.body.innerHTML += '<h2>' + 'Question 3: ' + data.quiz.q3.question + '<h2>';
+
+            for (i = 0; i < data.quiz.q3.options.length; i++) {
+
+                document.body.innerHTML += '<p>' + `<input type="radio" name="q3" value=${i} onclick="check('q3',${i})"/>` + data.quiz.q3
+                    .options[i] + '<p>';
+
+            }
+            document.body.innerHTML += '<h2>' + 'Question 4: ' + data.quiz.q4.question + '<h2>';
+
+            for (i = 0; i < data.quiz.q4.options.length; i++) {
+
+                document.body.innerHTML += '<p>' + `<input type="radio" name="q4" value=${i} onclick="check('q4',${i})"/>` + data.quiz.q4
+                    .options[i] + '<p>';
+
+            }
+
+            function checkChecked(){
+            const inputi = document.querySelectorAll("input")
+            console.log(inputi)
+            inputi.forEach(input => {
+                const isChecked = window.localStorage.getItem(input.getAttribute("name")) === input.getAttribute("value")
+                           if(isChecked) input.setAttribute("checked",isChecked)
+            })
+        }
+
+        checkChecked()
+
+        }).catch(function (err) {
+
+            console.log('Fetch problem: ' + err.message);
+
+        });
+
+        
+   
+        function check(a,b) {
+          window.localStorage.setItem(a,b)
+           console.log(a,b)
+        }
+    </script>
+</body>
+
+</html>
